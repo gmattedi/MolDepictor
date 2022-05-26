@@ -7,4 +7,10 @@ The app exposes a landing page and three endpoints:
 
 - `/image`: Returns the image of the molecule given a compound ID
 - `/smiles`: Returns the SMILES string of the molecule given its ID
-- `/depict`: Produces an image for an arbitrary SMILES string  
+- `/depict`: Produces an image for an arbitrary SMILES string
+
+### Requirements
+
+- `flask`
+- `rdkit`
+- `pandas`
