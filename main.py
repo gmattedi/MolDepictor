@@ -1,5 +1,4 @@
 from io import BytesIO
-from typing import Dict
 
 import pandas as pd
 from flask import Flask, send_file, request, render_template
@@ -81,6 +80,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     df = pd.read_csv(args.input_csv)
-    data: Dict[str, str] = df.set_index(args.name_col)[args.smiles_col].to_dict()
+    data = df.set_index(args.name_col)[args.smiles_col].to_dict()
 
     app.run(debug=True)
