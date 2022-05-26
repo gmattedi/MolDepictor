@@ -8,7 +8,7 @@ from rdkit.Chem import Draw, rdDepictor
 
 """
 Small Flask REST api for depicting and returning SMILES of molecules in a CSV file.
-The `depictor` route is a bonus endpoint for depicting arbitrary SMILES
+The `depict` route is a bonus endpoint for depicting arbitrary SMILES
 """
 
 rdDepictor.SetPreferCoordGen(True)
