@@ -76,7 +76,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Flask depictor')
     parser.add_argument('-i', '--input_csv', help='Input CSV file', required=True)
     parser.add_argument('-s', '--smiles_col', help='SMILES column (default: %(default)s)', default='SMILES')
-    parser.add_argument('-n', '--name_col', help='Identifier column (default: %(default)s)', default='ID')
+    parser.add_argument('-n', '--name_col', help='Identifier column (default: %(default)s)')
     args = parser.parse_args()
 
     df = pd.read_csv(args.input_csv)
