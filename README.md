@@ -1,6 +1,6 @@
 # MolDepictor
 
-Minimal Flask app for depicting the molecules in a user-provided dataset.
+Minimal Flask app for depicting the molecules of a user-provided dataset.
 
 The input is a .csv/.csv.gz file with containing a SMILES and identifier column.  
 The app exposes a landing page and three endpoints:
