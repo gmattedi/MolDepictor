@@ -3,7 +3,7 @@ from io import BytesIO
 import pandas as pd
 from flask import Flask, send_file, request, render_template
 from rdkit import Chem
-from rdkit.Chem import Draw, rdDepictor
+from rdkit.Chem import Draw, rdDepictor, AllChem
 
 """
 Small Flask REST api for depicting and returning SMILES of molecules in a CSV file.
@@ -39,6 +39,12 @@ def get_image():
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
         return 'Invalid SMILES', 400
+
+    for core in cores:
+        try:
+            AllChem.GenerateDepictionMatching2DStructure(mol, core)
+        except ValueError:
+            pass
 
     img = Draw.MolToImage(mol)
 
@@ -77,9 +83,15 @@ if __name__ == "__main__":
     parser.add_argument('-i', '--input_csv', help='Input CSV file', required=True)
     parser.add_argument('-s', '--smiles_col', help='SMILES column (default: %(default)s)', default='SMILES')
     parser.add_argument('-n', '--name_col', help='Identifier column (default: %(default)s)')
+    parser.add_argument('--cores', help='SDF file with cores to use for 2D alignment', default=None, required=True)
     args = parser.parse_args()
 
     df = pd.read_csv(args.input_csv)
     data = df.set_index(args.name_col)[args.smiles_col].to_dict()
+
+    if args.cores is not None:
+        cores = [mol for mol in Chem.SDMolSupplier(args.cores)]
+    else:
+        cores = []
 
     app.run(debug=True)
